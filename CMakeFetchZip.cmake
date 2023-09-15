@@ -1,4 +1,3 @@
-
 macro(CMakeFetchZip)
     
     set(${PROJECT_NAME}_m_evacu ${m})
@@ -8,10 +7,15 @@ macro(CMakeFetchZip)
     
     list(APPEND ${m}_unsetter ${m}_want_src ${m}_dest ${m}_download_dir ${m}_clean)
     set(${m}_want_src ${${m}_SOURCE})
-    set(${m}_dest ${${m}_DESTINATION})
     set(${m}_clean ${${m}_CLEAN})
     set(${m}_force ${${m}_FORCE_UPDATE})
     set(${m}_force_extract ${${m}_FORCE_EXTRACT})
+    
+    if(DEFINED ${m}_DESTINATION)
+        set(${m}_dest ${${m}_DESTINATION})
+    else()
+        set(${m}_dest ${CMAKE_BINARY_DIR}/CMakeFetchZip/extract)
+    endif()
     
     
     if(DEFINED ${m}_WORKING_DIRECTORY AND (EXISTS ${${m}_WORKING_DIRECTORY}))
