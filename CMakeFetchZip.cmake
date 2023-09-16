@@ -1,4 +1,7 @@
+
 macro(CMakeFetchZip)
+    
+    
     
     set(${PROJECT_NAME}_m_evacu ${m})
     set(m CMakeFetchZip)
@@ -39,17 +42,14 @@ macro(CMakeFetchZip)
     endif()
     
         
-    if(NOT DEFINED KAUTIL_JDK_ROOT OR NOT EXISTS "${KAUTIL_JDK_ROOT}")
-        
-        if( (NOT DEFINED CACHE{${${m}_want}}) OR NOT EXISTS "${${m}_want}")
-            file(DOWNLOAD "${${m}_want_src}" "${${m}_want}")
-            set(${${m}_want} TRUE CACHE STRING "")
-        endif()
-        
-        if(NOT DEFINED CACHE{${${m}_dest}.${${m}_name}})
-            execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf "${${m}_want}" WORKING_DIRECTORY ${${m}_dest})
-            set(${${m}_dest}.${${m}_name} TRUE CACHE STRING "")
-        endif()
+    if( (NOT DEFINED CACHE{${${m}_want}}) OR NOT EXISTS "${${m}_want}")
+        file(DOWNLOAD "${${m}_want_src}" "${${m}_want}")
+        set(${${m}_want} TRUE CACHE STRING "")
+    endif()
+    
+    if(NOT DEFINED CACHE{${${m}_dest}.${${m}_name}})
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf "${${m}_want}" WORKING_DIRECTORY ${${m}_dest})
+        set(${${m}_dest}.${${m}_name} TRUE CACHE STRING "")
     endif()
     
     foreach(__v ${${m}_unsetter})
